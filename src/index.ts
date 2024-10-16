@@ -1,8 +1,18 @@
 import express from "express"
 import cors from "cors"
 import { PrismaClient } from "@prisma/client"
+import { disableReactDevTools } from "@fvilers/disable-react-devtools"
+
+if (process.env.NODE_ENV==="production") disableReactDevTools()
 
 const app= express()
+app.use(cors(
+    {
+        origin: ["https://deploy-mern-1whq.vercel.app"],
+        methods: ["POST","GET"],
+        credentials:true
+    }
+))
 const prisma=new PrismaClient()
 
 app.use(express.json())
